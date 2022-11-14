@@ -4,6 +4,7 @@ import com.pagination.model.Avenger;
 import com.pagination.model.AvengerRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +36,20 @@ public class AvengerController {
         Page<Avenger> avengersPage = avengerRepository.findAll(pageRequest);
 
         List<Avenger> avengers = avengersPage.getContent();
+
+        return ResponseEntity.status(HttpStatus.OK).body(avengers);
+    }
+
+    @GetMapping("/avengers-with-sorting")
+    public ResponseEntity<?> avengersWithSorting(
+            @RequestParam(value = "sort", defaultValue = "id, asc", required = true) String[] sortingParams
+    ) {
+        String field = sortingParams[0];
+        String sortingDirection = sortingParams[1];
+
+        Sort.Direction direction = sortingDirection.equals("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+
+        List<Avenger> avengers = avengerRepository.findAll(Sort.by(direction, field));
 
         return ResponseEntity.status(HttpStatus.OK).body(avengers);
     }

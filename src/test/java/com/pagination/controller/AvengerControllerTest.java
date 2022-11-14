@@ -10,6 +10,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
@@ -68,5 +69,23 @@ public class AvengerControllerTest {
                 .andDo(print());
 
         verify(avengerRepository, times(1)).findAll(pageRequest);
+    }
+
+    @Test
+    void shouldBeAbleToReturnListOfAvengersWithSorting() throws Exception {
+        when(avengerRepository.findAll(Sort.by(Sort.Direction.DESC, "name"))).thenReturn(avengers);
+
+        ResultActions result = mockMvc.perform(get("/avengers-with-sorting?sort=name,desc"));
+
+        result.andExpect(status().isOk())
+                .andExpect(jsonPath("$.[0].id").value(avengers.get(0).getId()))
+                .andExpect(jsonPath("$.[0].name").value(avengers.get(0).getName()))
+                .andExpect(jsonPath("$.[0].introducedInMovie").value(avengers.get(0).getIntroducedInMovie()))
+                .andExpect(jsonPath("$.[1].id").value(avengers.get(1).getId()))
+                .andExpect(jsonPath("$.[1].name").value(avengers.get(1).getName()))
+                .andExpect(jsonPath("$.[1].introducedInYear").value(avengers.get(1).getIntroducedInYear()))
+                .andDo(print());
+
+        verify(avengerRepository, times(1)).findAll(Sort.by(Sort.Direction.DESC, "name"));
     }
 }
