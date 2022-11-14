@@ -31,6 +31,7 @@ public class AvengerControllerTest {
     private AvengerRepository avengerRepository;
     private List<Avenger> avengers;
     private PageRequest pageRequest;
+    private PageRequest pageRequestWithSorting;
     private Page<Avenger> avengersPage;
 
     @BeforeEach
@@ -38,8 +39,9 @@ public class AvengerControllerTest {
         Avenger ironman = new Avenger("Ironman", "Iron Man", 2008);
         Avenger thor = new Avenger("Thor", "Thor", 2011);
         avengers = Arrays.asList(ironman, thor);
-        pageRequest = PageRequest.of(0, 1);
         avengersPage = new PageImpl<>(avengers);
+        pageRequest = PageRequest.of(0, 1);
+        pageRequestWithSorting = PageRequest.of(0, 1, Sort.by(Sort.Direction.DESC, "name"));
     }
 
     @Test
@@ -87,5 +89,23 @@ public class AvengerControllerTest {
                 .andDo(print());
 
         verify(avengerRepository, times(1)).findAll(Sort.by(Sort.Direction.DESC, "name"));
+    }
+
+    @Test
+    void shouldBeAbleToReturnListOfAvengersWithPaginationAndSorting() throws Exception {
+        when(avengerRepository.findAll(pageRequestWithSorting)).thenReturn(avengersPage);
+
+        ResultActions result = mockMvc.perform(get("/avengers-with-pagination-and-sorting?pageNumber=0&pageSize=1&sort=name,desc"));
+
+        result.andExpect(status().isOk())
+                .andExpect(jsonPath("$.[0].id").value(avengers.get(0).getId()))
+                .andExpect(jsonPath("$.[0].name").value(avengers.get(0).getName()))
+                .andExpect(jsonPath("$.[0].introducedInMovie").value(avengers.get(0).getIntroducedInMovie()))
+                .andExpect(jsonPath("$.[1].id").value(avengers.get(1).getId()))
+                .andExpect(jsonPath("$.[1].name").value(avengers.get(1).getName()))
+                .andExpect(jsonPath("$.[1].introducedInYear").value(avengers.get(1).getIntroducedInYear()))
+                .andDo(print());
+
+        verify(avengerRepository, times(1)).findAll(pageRequestWithSorting);
     }
 }

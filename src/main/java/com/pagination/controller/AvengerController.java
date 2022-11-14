@@ -53,4 +53,22 @@ public class AvengerController {
 
         return ResponseEntity.status(HttpStatus.OK).body(avengers);
     }
+
+    @GetMapping("/avengers-with-pagination-and-sorting")
+    public ResponseEntity<?> avengersWithPaginationAndSorting(
+            @RequestParam(value = "pageNumber", defaultValue = "0", required = true) int pageNumber,
+            @RequestParam(value = "pageSize", defaultValue = "10", required = true) int pageSize,
+            @RequestParam(value = "sort", defaultValue = "id, asc", required = true) String[] sortingParams
+    ) {
+        String field = sortingParams[0];
+        String sortingDirection = sortingParams[1];
+        Sort.Direction direction = sortingDirection.equals("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by(direction, field));
+
+        Page<Avenger> avengersPage = avengerRepository.findAll(pageRequest);
+
+        List<Avenger> avengers = avengersPage.getContent();
+
+        return ResponseEntity.status(HttpStatus.OK).body(avengers);
+    }
 }
