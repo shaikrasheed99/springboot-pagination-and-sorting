@@ -1,4 +1,4 @@
-package com.pagination.model;
+package com.pagination_and_sorting.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

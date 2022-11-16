@@ -1,7 +1,7 @@
-package com.pagination.controller;
+package com.pagination_and_sorting.controller;
 
-import com.pagination.model.Avenger;
-import com.pagination.model.AvengerRepository;
+import com.pagination_and_sorting.model.Avenger;
+import com.pagination_and_sorting.model.AvengerRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

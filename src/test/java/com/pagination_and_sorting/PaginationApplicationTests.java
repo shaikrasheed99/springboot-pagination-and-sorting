@@ -1,4 +1,4 @@
-package com.pagination;
+package com.pagination_and_sorting;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

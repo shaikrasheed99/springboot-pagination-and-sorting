@@ -1,4 +1,4 @@
-package com.pagination.model;
+package com.pagination_and_sorting.model;
 
 import javax.persistence.*;
 

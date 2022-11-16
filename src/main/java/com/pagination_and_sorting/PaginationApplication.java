@@ -1,4 +1,4 @@
-package com.pagination;
+package com.pagination_and_sorting;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

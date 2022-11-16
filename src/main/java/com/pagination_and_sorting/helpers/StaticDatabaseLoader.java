@@ -1,7 +1,7 @@
-package com.pagination.helpers;
+package com.pagination_and_sorting.helpers;
 
-import com.pagination.model.Avenger;
-import com.pagination.model.AvengerRepository;
+import com.pagination_and_sorting.model.Avenger;
+import com.pagination_and_sorting.model.AvengerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
