@@ -2,18 +2,11 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '2.7.5'
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
-    id "org.flywaydb.flyway" version "8.5.13"
 }
 
 group = 'com'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
-
-flyway {
-    url = 'jdbc:postgresql://localhost:5432/pagination'
-    user = 'postgres'
-    password = 'root'
-}
 
 repositories {
     mavenCentral()
