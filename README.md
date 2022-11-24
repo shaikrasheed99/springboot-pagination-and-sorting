@@ -2,15 +2,15 @@
 
 ## Gradle based spring boot application which provide APIs with pagination and sorting using test driven development.
 
+I have clearly explained about these topics on Medium.
+* [Part - 1](https://medium.com/@rasheed99/pagination-and-sorting-using-spring-boot-with-tdd-part-i-c6533aa57a0c)
+* [Part - 2](https://medium.com/@rasheed99/pagination-and-sorting-using-spring-boot-with-tdd-part-ii-281958b2d6fb)
+
 ## APIs of the Application
     - Read Avengers
     - Read Avengers with Pagination
     - Read Avengers with Sorting
     - Read Avengers with Pagination and Sorting
-
-I have clearly explained about these topics on Medium. 
-* [Part - 1](https://medium.com/@rasheed99/pagination-and-sorting-using-spring-boot-with-tdd-part-i-c6533aa57a0c)
-* [Part - 2](https://medium.com/@rasheed99/pagination-and-sorting-using-spring-boot-with-tdd-part-ii-281958b2d6fb)
 
 ## Get Avengers
 
